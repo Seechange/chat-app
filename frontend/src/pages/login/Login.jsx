@@ -45,7 +45,7 @@ const Login = () => {
                   clipRule="evenodd"
                 />
               </svg>
-              <input type="password" className="grow" value="password" />
+              <input type="password" className="grow" value="" placeholder="Enter password" />
             </label>
           </div>
           <div>
