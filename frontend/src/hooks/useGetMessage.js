@@ -1,0 +1,31 @@
+import { useEffect, useState } from "react"
+import useConversation from "../zustand/useConversation"
+import { toast } from "react-toastify"
+
+const useGetMessage = () => {
+    const [loading, setLoading] = useState(false)
+    const { selectedConversation, messages, setMessages, } = useConversation()
+
+    useEffect(() => {
+        const getMessages = async () => {
+            setLoading(true);
+            try {
+                const res = await fetch(`/api/messages/${selectedConversation._id}`);
+                const data = await res.json();
+                console.log('check data: ', data)
+                // if (data.errCode) throw new Error(data.errCode);
+                setMessages(data);
+
+            } catch (error) {
+                toast.error(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        if (selectedConversation?._id) getMessages()
+
+    }, [selectedConversation?._id, setMessages])
+    return { loading, messages }
+}
+
+export default useGetMessage

@@ -1,6 +1,16 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import useLogin from "../../hooks/useLogin";
 
 const Login = () => {
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  //lấy props sang
+  const { loading, login } = useLogin();
+  const handleSubmitLogin = async (e) => {
+    e.preventDefault();
+    await login(userName, password);
+  };
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
       <div
@@ -11,7 +21,7 @@ const Login = () => {
           Login
           <span className="text-blue-600"> Chat App</span>
         </h1>
-        <form action="">
+        <form action="" onSubmit={handleSubmitLogin}>
           <div>
             <label className="label p-2">
               <span className="text-base label-text">Username</span>
@@ -25,7 +35,13 @@ const Login = () => {
               >
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
               </svg>
-              <input type="text" className="grow" placeholder="Username" />
+              <input
+                type="text"
+                className="grow"
+                placeholder="Username"
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+              />
             </label>
           </div>
           <div>
@@ -45,7 +61,13 @@ const Login = () => {
                   clipRule="evenodd"
                 />
               </svg>
-              <input type="password" className="grow" value="" placeholder="Enter password" />
+              <input
+                type="password"
+                className="grow"
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </label>
           </div>
           <div>
@@ -57,8 +79,15 @@ const Login = () => {
             </Link>
           </div>
           <div className=" flex items-center justify-center">
-            <button className="btn min-w-40 text-base hover:bg-blue-500">
-              Login
+            <button
+              className="btn min-w-40 text-base hover:bg-blue-500"
+              disabled={loading}
+            >
+              {loading ? (
+                <span className="loading loading-spinner"></span>
+              ) : (
+                "Login"
+              )}
             </button>
           </div>
         </form>
