@@ -12,7 +12,6 @@ const useGetMessage = () => {
             try {
                 const res = await fetch(`/api/messages/${selectedConversation._id}`);
                 const data = await res.json();
-                console.log('check data: ', data)
                 // if (data.errCode) throw new Error(data.errCode);
                 setMessages(data);
 
@@ -29,3 +28,5 @@ const useGetMessage = () => {
 }
 
 export default useGetMessage
+
+

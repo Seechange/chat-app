@@ -1,7 +1,11 @@
 import { useAuthContext } from "../../context/AuthContext";
 import useConversation from "../../zustand/useConversation";
 import { extractTime } from "../../utils/extractTime";
+import useGetMessage from "../../hooks/useGetMessage";
 const Message = ({ message }) => {
+  //bad code because render any more
+  const {messages } = useGetMessage()
+  // console.log('check messages',messages  );
   const { authUser } = useAuthContext();
   const { selectedConversation } = useConversation();
   const myself = message.senderId === authUser._id;

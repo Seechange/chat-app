@@ -16,6 +16,7 @@ const useSendMessage = () => {
             })
 
             const data = await res.json()
+            console.log('check data send:',data);
             if (data.errCode) {
                 throw new Error(data.errCode)
             }
